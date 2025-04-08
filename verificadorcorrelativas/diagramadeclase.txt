@@ -1,0 +1,33 @@
+@startuml
+
+class Materia {
+  - nombre : String
+  - correlativas : Materia[]
+  + Materia(nombre: String)
+  + setCorrelativas(correlativas: Materia[]) : void
+  + getCorrelativas() : Materia[]
+  + getNombre() : String
+  + esIgualA(otra: Materia) : boolean
+}
+
+class Alumno {
+  - nombre : String
+  - materiasAprobadas : Materia[]
+  + Alumno(nombre: String, materiasAprobadas: Materia[])
+  + getMateriasAprobadas() : Materia[]
+}
+
+class Inscripcion {
+  - alumno : Alumno
+  - materias : Materia[]
+  + Inscripcion(alumno: Alumno, materias: Materia[])
+  + aprobada() : boolean
+  - alumnoTieneMateriaAprobada(m: Materia) : boolean
+}
+
+Materia "0..*" --> "0..*" Materia : correlativas
+Alumno "1" --> "0..*" Materia : materiasAprobadas
+Inscripcion "1" --> "1" Alumno
+Inscripcion "1" --> "1..*" Materia : materias
+
+@enduml
